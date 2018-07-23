@@ -1,0 +1,12 @@
+db.sqlite3
+grocery_list/__init__.py
+grocery_list/__pycache__/
+grocery_list/migrations/
+*.swp
+listmaker/__init__.py
+listmaker/__pycache__/
+manage.py
+notes
+grocery_list/tests.py
+listmaker/wsgi.py
+
