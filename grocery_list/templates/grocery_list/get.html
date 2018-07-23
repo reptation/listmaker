@@ -1,0 +1,11 @@
+
+{% if needed_item_list %}
+    <ul>
+    {% for each_item in needed_item_list %}
+        <li>{{ each_item.name }}</li>        
+    {% endfor %}
+    </ul>
+
+{% else %}
+    <p> The list is not available.</p>
+{% endif %}
