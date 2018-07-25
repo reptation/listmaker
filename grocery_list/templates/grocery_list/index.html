@@ -1,8 +1,19 @@
-{% load render_table from django_tables2 %}
 
 <p><a href="/grocery_list/need">Get Shopping List</a>
 
- 
-{% render_table table %}
+{% if item_list %}
+    <ul>
+    {% for each_item in item_list %}
+        <li><a href="/grocery_list/{{ each_item.id }}/">{{ each_item.name }}</a>        
+            <ul>
+                <li>{{ each_item.status }}</li>
+                <li>{{ each_item.item_type }}</li>
+            </ul>
+        </li>
+    {% endfor %}
+    </ul>
 
+{% else %}
+    <p> The list is not available.</p>
+{% endif %}
 
