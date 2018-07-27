@@ -6,8 +6,19 @@ from .models import Item
 
 def index(request):
     item_list = Item.objects.all()
+    produce_items = Item.objects.filter(item_type="produce")
+    meat_items = Item.objects.filter(item_type="meat_and_fish")
+    p_goods = Item.objects.filter(item_type="packaged_goods")
+    bulk = Item.objects.filter(item_type="bulk_goods")
+    item_types = Item.ITEM_TYPES
+    item_types_hr = [x[1] for x in Item.ITEM_TYPES]
     context = {
         'item_list': item_list,
+        'item_desc': item_types_hr,
+        'bulk': bulk,
+        'p_goods': p_goods,
+        'meat_items': meat_items,
+        'produce_items': produce_items
     }
     return render(request, 'grocery_list/index.html', context)
 

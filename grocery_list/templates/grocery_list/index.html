@@ -2,18 +2,35 @@
 <p><a href="/grocery_list/need">Get Shopping List</a>
 
 {% if item_list %}
+    <p>Fruits and Vegetables</p>
+        {% for veg in produce_items %} 
     <ul>
-    {% for each_item in item_list %}
-        <li><a href="/grocery_list/{{ each_item.id }}/">{{ each_item.name }}</a>        
-            <ul>
-                <li>{{ each_item.status }}</li>
-                <li>{{ each_item.item_type }}</li>
-            </ul>
-        </li>
-    {% endfor %}
+        <li>{{ veg }} {{ veg.status }}</li>
     </ul>
+        {% endfor %}
 
-{% else %}
+    <p>Packaged Goods</p>
+        {% for pack in p_goods %}
+    <ul>
+        <li>{{ pack }} {{ pack.status }}</li>
+    </ul>
+        {% endfor %} 
+
+    <p>Bulk Items</p>
+        {% for b in bulk %}
+    <ul>
+        <li>{{ b }} {{ b.status }}</li>
+    </ul>
+        {% endfor %}
+
+    <p>Meat and Fish</p>
+        {% for m in meat_items %}
+    <ul>
+        <li>{{ m }} {{ m.status }}</li>
+    </ul>
+        {% endfor %}
+
+ {% else %}
     <p> The list is not available.</p>
 {% endif %}
 
