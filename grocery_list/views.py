@@ -12,13 +12,16 @@ def index(request):
     bulk = Item.objects.filter(item_type="bulk_goods")
     item_types = Item.ITEM_TYPES
     item_types_hr = [x[1] for x in Item.ITEM_TYPES]
+    item_status_hr = [x[1] for x in Item.ITEM_STATUS]
     context = {
         'item_list': item_list,
         'item_desc': item_types_hr,
         'bulk': bulk,
         'p_goods': p_goods,
         'meat_items': meat_items,
-        'produce_items': produce_items
+        'produce_items': produce_items,
+        'status_types': item_status_hr,
+        'item_types': item_types_hr
     }
     return render(request, 'grocery_list/index.html', context)
 

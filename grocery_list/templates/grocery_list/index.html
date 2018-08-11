@@ -5,30 +5,64 @@
     <p>Fruits and Vegetables</p>
         {% for veg in produce_items %} 
     <ul>
-        <li>{{ veg }} {{ veg.status }}</li>
+        <li>{{ veg }} {{ veg.status }} 
+        {% for each_status in status_types %}
+            <input type="radio" name="{{ veg }}_status" id="status{{ forloop.counter }}" value="{{ each_status }}"  
+            {% if veg.status == each_status %}
+                checked="checked"
+            {% endif %}
+            > {{ each_status }} 
+        {% endfor %}
+       </li>
     </ul>
         {% endfor %}
 
-    <p>Packaged Goods</p>
+    <p>Packaged goods</p>
         {% for pack in p_goods %}
     <ul>
-        <li>{{ pack }} {{ pack.status }}</li>
+        <li>{{ pack }} {{ pack.status }}        
+        {% for each_status in status_types %}
+            <input type="radio" name="{{ pack }}_status" id="status{{ forloop.counter }}" value="{{ each_status }}"
+            {% if pack.status == each_status %}
+                checked="checked"
+            {% endif %}
+            > {{ each_status }} 
+        {% endfor %}
+ </li>
     </ul>
         {% endfor %} 
 
     <p>Bulk Items</p>
         {% for b in bulk %}
     <ul>
-        <li>{{ b }} {{ b.status }}</li>
+        <li>{{ b }} {{ b.status }}        
+        {% for each_status in status_types %}
+            <input type="radio" name="{{ b }}_status" id="status{{ forloop.counter }}" value="{{ each_status }}"
+            {% if b.status == each_status %}
+                checked="checked"
+            {% endif %} 
+            > {{ each_status }} 
+        {% endfor %}
+ </li>
     </ul>
         {% endfor %}
 
     <p>Meat and Fish</p>
         {% for m in meat_items %}
     <ul>
-        <li>{{ m }} {{ m.status }}</li>
+        <li>{{ m }} {{ m.status }}        
+        {% for each_status in status_types %}
+            <input type="radio" name="{{ m }}_status" id="status{{ forloop.counter }}" value="{{ each_status }}"
+            {% if m.status == each_status %}
+                checked="checked"
+            {% endif %}
+            > {{ each_status }} 
+        {% endfor %}
+ </li>
     </ul>
         {% endfor %}
+
+<button type="button">Update List</button>
 
  {% else %}
     <p> The list is not available.</p>
