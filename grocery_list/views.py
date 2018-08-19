@@ -1,8 +1,10 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 #from django.template import loader
 
 from .models import Item
+from .forms import NameForm
+from .list_form import UserListForm
 
 def index(request):
     item_list = Item.objects.all()
@@ -37,3 +39,39 @@ def need(request):
         'needed_item_list': needed_item_list,
     }
     return render(request, 'grocery_list/get.html', context)
+
+def get_name(request):
+    # if this is a POST request we need to process the form data
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = NameForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            # ...
+            # redirect to a new URL:
+            return HttpResponseRedirect('/thanks/')
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = NameForm()
+
+    return render(request, 'grocery_list/name.html', {'form': form})
+
+
+def get_list(request):
+    if request.method == 'POST':
+        form = UserListForm(request.POST)
+        if form.is_valid():
+            return HttpResponseRedirect('/thanks/')
+
+    else:
+        form = UserListForm()
+    
+    return render(request, 'grocery_list/list.html', {'form': form})
+
+def thanks(request):
+    response = "Thanks for keeping things updated"
+    return HttpResponse(response)
+
+    

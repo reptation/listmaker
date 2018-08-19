@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
    
 class Item(models.Model):
@@ -21,4 +22,9 @@ class Item(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class UserList(models.Model):
+    items = models.ManyToManyField(Item)
+    owner = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 
