@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 #from django.template import loader
+from django.utils import timezone
 
-from .models import Item
+from .models import Item, UserList
 from .forms import NameForm
 from .list_form import UserListForm
 
@@ -28,6 +29,10 @@ def index(request):
     return render(request, 'grocery_list/index.html', context)
 
     
+def list_display(request, list_id):
+    mylist = UserList.objects.get(pk=list_id)
+    return HttpResponse(mylist)
+
 def detail(request, item_id):
     response = "Viewing details about %s." 
     return HttpResponse(response % item_id)
@@ -40,35 +45,19 @@ def need(request):
     }
     return render(request, 'grocery_list/get.html', context)
 
-def get_name(request):
-    # if this is a POST request we need to process the form data
-    if request.method == 'POST':
-        # create a form instance and populate it with data from the request:
-        form = NameForm(request.POST)
-        # check whether it's valid:
-        if form.is_valid():
-            # process the data in form.cleaned_data as required
-            # ...
-            # redirect to a new URL:
-            return HttpResponseRedirect('/thanks/')
-
-    # if a GET (or any other method) we'll create a blank form
-    else:
-        form = NameForm()
-
-    return render(request, 'grocery_list/name.html', {'form': form})
-
 
 def get_list(request):
     if request.method == 'POST':
         form = UserListForm(request.POST)
         if form.is_valid():
+            print(form.cleaned_data)
+            new_list = form.save()
             return HttpResponseRedirect('/thanks/')
-
     else:
         form = UserListForm()
     
     return render(request, 'grocery_list/list.html', {'form': form})
+
 
 def thanks(request):
     response = "Thanks for keeping things updated"
